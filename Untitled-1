@@ -1,0 +1,129 @@
+#define N 512
+#define THREADS_PER_BLOCK 128
+
+__global__ void addScalarToVector(int* vector, int scalar, int* result)
+{
+    int i = threadIdx.x
+}
+
+
+clock_t start,end;
+    double exec_time;
+    
+    A = allocate_matrix(N);
+    B = allocate_matrix(N);
+    C = allocate_matrix(N);
+      for(int i = 0; i< N; i++){
+        for(int j = 0; j< N; j++){
+            A[i][j] = 1;
+            B[i][j] = 1;
+        }
+    } 
+
+    printf("Multiply without optimization\n");
+    start = clock();
+
+    multiply_matrix(A,B,C);
+
+    end = clock();
+
+    exec_time = (end - start)/CLOCKS_PER_SEC;
+
+    printf("Execution time: %f\n",exec_time);
+ 
+    //free_matrix(A,N);
+    //free_matrix(B,N);
+    
+    
+    
+    //A = allocate_matrix(N);
+    //B = allocate_matrix(N);
+    D = allocate_matrix(N);
+    
+    /* for(int i = 0; i< N; i++){
+        for(int j = 0; j< N; j++){
+            A[i][j] = 1;
+            B[i][j] = 1;
+        }
+    } */ 
+
+    printf("Multiply with omp\n");
+    start = clock();
+
+    //multiply_matrix_omp(A,B,D);
+    multiply_matrix_tiling(A,B,D);
+    end = clock();
+
+    exec_time = (end - start)/CLOCKS_PER_SEC;
+
+    printf("Execution time: %f\n",exec_time);
+    
+    int nonEquality = compare_matrix(C,D);
+
+    if(nonEquality) printf("The two results are not equal\n");
+    else printf("The two results are equal\n");
+    
+
+    free_matrix(A,N);
+    free_matrix(B,N);
+    free_matrix(D,N);
+    free_matrix(C,N);
+    
+    /*
+    A = allocate_matrix(N);
+    B = allocate_matrix(N);
+    C = allocate_matrix(N);
+      for(int i = 0; i< N; i++){
+        for(int j = 0; j< N; j++){
+            A[i][j] = 1;
+            B[i][j] = 1;
+        }
+    } 
+
+
+    printf("Multiply by transpose\n");    
+    start = clock();
+
+    multiply_matrix_transpose(A,B,C);
+
+    end = clock();
+
+    exec_time = (end - start)/CLOCKS_PER_SEC;
+
+    printf("Execution time: %f\n",exec_time);
+
+    free_matrix(A,N);
+    free_matrix(B,N);
+    free_matrix(C,N);
+    
+
+    A = allocate_matrix(N);
+    B = allocate_matrix(N);
+    C = allocate_matrix(N);
+      for(int i = 0; i< N; i++){
+        for(int j = 0; j< N; j++){
+            A[i][j] = 1;
+            B[i][j] = 1;
+        }
+    } 
+
+
+
+    printf("Multiply using transpose and omp\n");
+
+    start = clock();
+
+    multiply_matrix_transpose_omp(A,B,C);
+
+    end = clock();
+
+    exec_time = (end - start)/CLOCKS_PER_SEC;
+
+    printf("Execution time: %f\n",exec_time);
+    
+    
+
+    free_matrix(A,N);
+    free_matrix(B,N);
+    free_matrix(C,N);
+    */
