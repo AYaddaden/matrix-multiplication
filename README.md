@@ -12,7 +12,7 @@ Those techniques are also combined together to measure computation time.
 Here's a preview of an execution on a Intel&#174; i7 7500U CPU 
 
                                    Method | Taken time | Improvement 
-------------------------------------------|------------|-------------
+--- |---|---
                             Non-optimized |   8.309747 |      0.00%
                          tmp optimization |   5.413826 |     32.33% 
                       OpenMP optimization |   5.593702 |     30.08% 
